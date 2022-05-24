@@ -1,0 +1,66 @@
+// package main
+//
+// 研修終了時のソース
+//
+// import (
+// 	"encoding/csv"
+// 	"fmt"
+// 	"github.com/gin-gonic/gin"
+// 	"io"
+// 	"os"
+// )
+
+// func searchAdress(postalCode string) (string, string, string) {
+
+// 	f, _ := os.Open("./KEN_ALL.csv")
+// 	r := csv.NewReader(f)
+
+// 	var prefecture string
+// 	var municipalities string
+// 	var town string
+
+// 	for {
+// 		record, err := r.Read()
+// 		if err == io.EOF {
+//           fmt.Printf("IO ERROR")
+// 			break
+// 		}
+
+// 		if record[2] == postalCode {
+// 			prefecture, municipalities = record[6], record[7]
+// 			if record[8] == "以下に掲載がない場合" {
+// 				town = ""
+// 			} else {
+// 				town = record[8]
+// 			}
+// 			break
+// 		}
+// 	}
+
+// 	return prefecture, municipalities, town
+// }
+
+// func main() {
+
+// 	router := gin.Default()
+// 	router.GET("/search", func(ctx *gin.Context) {
+
+// 		postalCode := ctx.Query("id")
+// 		prefectureName, municipalitiesName, townName := searchAdress(postalCode)
+
+// 		ctx.JSON(200, gin.H{
+// 			"郵便番号": postalCode,
+// 			"住所": gin.H{
+// 				"都道府県": prefectureName,
+// 				"市区町村": municipalitiesName,
+// 				"町名":   townName,
+// 			},
+// 		})
+// 	})
+
+// 	err := router.Run(":8080")
+// 	if err == nil {
+// 		fmt.Printf("ROUTER RUN ERROR")
+// 	}
+
+// }
