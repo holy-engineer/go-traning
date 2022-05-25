@@ -50,6 +50,8 @@ func main() {
 		postalCode := ctx.Query("param")
 		var postInfo PostInfo
 		postInfo.searchAdress(postalCode)
+
+		//検索結果が格納されたpostInfo構造体をJSONメソッドに渡すとJSON形式で出力される
 		ctx.JSON(200, postInfo)
 	})
 
